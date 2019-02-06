@@ -17,7 +17,18 @@ var userRoutes = require('./routes/user');
 
 var app = express();
 
-mongoose.connect('localhost:27017/shopping');
+const sequelize = new Sequelize('store', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
+  port: '3306',
+
+  pool: {
+    max: 10,
+    min: 0,
+ 
+  },
+});
+
 require('./config/passport');
 
 // view engine setup

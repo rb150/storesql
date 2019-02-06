@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -9,3 +10,15 @@ var schema = new Schema({
 });
 
 module.exports = mongoose.model('Product', schema);
+*/
+
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define('Product', {
+        imagePath: DataTypes.STRING,
+        title: DataTypes.STRING,
+        descripcion: DataTypes.TEXT,
+        price: DataTypes.FLOAT
+    });
+
+
+};

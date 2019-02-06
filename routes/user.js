@@ -9,7 +9,7 @@ var Cart = require('../models/cart');
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
-router.get('/profile', isLoggedIn, function (req, res, next) {
+function showProfile (req, res, next) {
     Order.find({user: req.user}, function(err, orders) {
         if (err) {
             return res.write('Error!');
@@ -21,7 +21,9 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
         });
         res.render('user/profile', { orders: orders });
     });
-});
+}
+
+router.get('/profile', isLoggedIn, showProfile);
 
 router.get('/logout', isLoggedIn, function (req, res, next) {
     req.logout();
