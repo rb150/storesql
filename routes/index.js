@@ -22,10 +22,18 @@ const Product = sequelize.import('../models/product');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    var successMsg = req.flash('success')[0];
     Product
     .findAll()
     .then(products => {
-        res.render('shop/index', {title: 'Express', products: products});
+        //copied and pasted from below for boostrap 3, DNW
+    
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < products.length; i += chunkSize) {
+            productChunks.push(products.slice(i, i + chunkSize));
+        }
+        res.render('shop/index', {title: 'Shopping Cart', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
     })
     .catch(err => {
         console.log(err.message)
