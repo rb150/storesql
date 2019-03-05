@@ -1,14 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var Cart = require('../models/cart');
-
-var Product = require('../models/product');
+var Cart = require('../models/cart')
 var Order = require('../models/order');
+
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('store', 'root', 'password', {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: '3306',
+  
+    pool: {
+      max: 10,
+      min: 0,
+   
+    },
+  });
+
+const Product = sequelize.import('../models/product');
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    models.Product
-    .all()
+    Product
+    .findAll()
     .then(products => {
         res.render('shop/index', {title: 'Express', products: products});
     })
